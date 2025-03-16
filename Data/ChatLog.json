@@ -1,0 +1,106 @@
+[
+    {
+        "role": "user",
+        "content": "hi"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello, how can I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "search who is cm of haryana"
+    },
+    {
+        "role": "assistant",
+        "content": "I apologize, but I'm having trouble connecting to search services right now. However, I can suggest that you try checking again later or verifying your internet connection. Alternatively, I can try to provide you with information that was available up to my knowledge cutoff. As of my knowledge cutoff, the Chief Minister of Haryana is Manohar Lal Khattar. Please note that this information may not be up-to-date."
+    },
+    {
+        "role": "user",
+        "content": "today wethor of paroli"
+    },
+    {
+        "role": "assistant",
+        "content": "According to the search results, today's weather in Baroli, Haryana, India is mostly cloudy with a low of 17\u00b0C. The humidity is 56%, and the winds are coming from the NNW at 10 to 15 km/h."
+    },
+    {
+        "role": "user",
+        "content": "price of stile"
+    },
+    {
+        "role": "assistant",
+        "content": "I couldn't find the price of \"stile\" as it's a bit unclear what you're referring to. Could you please provide more context or clarify what type of \"stile\" you're asking about (e.g. a brand, a product, etc.)?"
+    },
+    {
+        "role": "user",
+        "content": "loha"
+    },
+    {
+        "role": "assistant",
+        "content": "You're referring to the price of Loha, which is Hindi for Iron. As of today, the price of iron in India is around \u20b954,500 per metric ton. However, please note that prices can fluctuate and may vary depending on location, market conditions, and other factors."
+    },
+    {
+        "role": "user",
+        "content": "what is stockprice of tata moters"
+    },
+    {
+        "role": "assistant",
+        "content": "According to the search results, the current stock price of Tata Motors Ltd is \u20b9670.65. The previous close was \u20b9668.30, and the upper circuit limit is \u20b9735.10, while the lower circuit limit is \u20b9601.50."
+    },
+    {
+        "role": "user",
+        "content": "hi"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello, how can I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "what is your name"
+    },
+    {
+        "role": "assistant",
+        "content": "My name is Nova G1"
+    },
+    {
+        "role": "user",
+        "content": "and your version"
+    },
+    {
+        "role": "assistant",
+        "content": "My version is Nova G1."
+    },
+    {
+        "role": "user",
+        "content": "who is nitesh"
+    },
+    {
+        "role": "assistant",
+        "content": "Nitesh Sain is my creator, he is a student of B.Tech CSE AI&ML at Shri Vishwkarma Skill University."
+    },
+    {
+        "role": "user",
+        "content": "oj"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello, I'm here to help. How can I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "search again"
+    },
+    {
+        "role": "assistant",
+        "content": "I'd be happy to help, but I need more information on what you'd like me to search for. Could you please provide more context or clarify what you're looking for?"
+    },
+    {
+        "role": "user",
+        "content": "who is current cm of haryana"
+    },
+    {
+        "role": "assistant",
+        "content": "According to the search results, the current Chief Minister of Haryana is Shri Nayab Singh Saini."
+    }
+]

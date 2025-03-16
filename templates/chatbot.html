@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova G1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: black;
+            color: #fff;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .chat-container {
+            width: 90%; /* Changed from 60% */
+            max-width: 800px; /* Reduced from 1200px for better centered look */
+            height: calc(100vh - 20px);
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 20px;
+            position: relative;
+            margin: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            position: relative;
+        }
+        .three-dots {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            cursor: pointer;
+            font-size: 30px;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        .three-dots:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .app-title {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 5px 15px;
+            border-radius: 15px;
+            z-index: 1;
+        }
+        .chat-box {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1rem; /* Changed from 1.2rem */
+            margin-top: 40px; /* Add space for header */
+        }
+        .message {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            padding: 8px 12px;
+            max-width: 85%; /* Changed from 75% */
+            position: relative;
+            word-wrap: break-word;
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: rgb(100, 95, 95);
+            border-radius: 10px 10px 0 10px;
+            text-align: right;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background-color: none;
+            border-radius: 10px 10px 10px 0;
+            position: relative;
+            
+        }
+        .input-area {
+            position: relative;
+            display: flex;
+            background-color: #050505;
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type="text"] {
+            width: 100%;
+            height: 35px;
+            border: none;
+            padding: 15px 60px 15px 20px;
+            outline: none;
+            background-color: #292828;
+            color: #ddd;
+            border-radius: 25px;
+            font-size: 1rem; /* Changed from 1.2rem */
+        }
+        button {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #4ecdc4;
+            color: #000;
+            border: none;
+            padding: 10px 20px; /* Changed from 20px 25px */
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 1rem; /* Changed from 1.2rem */
+            white-space: nowrap;
+        }
+
+        /* Add media queries for different screen sizes */
+        @media screen and (max-width: 768px) {
+            .chat-container {
+                width: 100%;
+            }
+            .message {
+                max-width: 90%;
+            }
+            .input-area {
+                padding: 10px;
+            }
+        }
+
+        @media screen and (min-width: 769px) {
+            .chat-container {
+                width: 70%;
+                margin: auto;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .chat-box {
+                padding: 8px;
+            }
+            .message {
+                font-size: 0.9rem;
+                padding: 6px 10px;
+                
+            }
+            input[type="text"] {
+                padding: 15px 65px 15px 15px;
+                font-size: 1.5rem;
+                height: 80px;
+            }
+            button {
+                padding: 8px 15px;
+                right: 18px;
+                height: 50px;
+            }
+            .app-title {
+                font-size: 1.5rem;
+                top: 10px;
+                left: 15px;
+            }
+            .three-dots {
+                right: 15px;
+                top: 10px;
+                
+            }
+        }
+        .developer-info {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: #1a1a1a;
+            padding: 20px;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            overflow-y: auto;
+            visibility: hidden;
+            opacity: 0;
+        }
+        .developer-info.show {
+            right: 0;
+            visibility: visible;
+            opacity: 1;
+        }
+        .developer-info p {
+            margin: 15px 0;
+            font-size: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        .close-menu {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">
+            <div class="app-title">Nova G1 </div>
+            <div class="three-dots" onclick="toggleDeveloperInfo()">⋮</div>
+            <div class="developer-info" id="developerInfo">
+                <span class="close-menu" onclick="toggleDeveloperInfo()">×</span>
+                <h2 style="margin-bottom: 20px; color: #4ecdc4;">Developer Info</h2>
+                <p><strong>Developer:</strong> Nitesh Sain</p>
+                <p><strong>Version:</strong> Nova G1</p>
+                <p><strong>Contact:</strong> niteshsain9842@gmail.com</p>
+                <p><strong>Linkdin:  </strong><a href="https://www.linkedin.com/in/nitesh-sain-7191a9324?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">URL Click</a> </p>
+            </div>
+            <div class="overlay" id="overlay" onclick="toggleDeveloperInfo()"></div>
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="message bot-message">
+                
+            </div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const chatBox = document.getElementById('chatBox');
+            const userInput = document.getElementById('userInput');
+            const userMessage = userInput.value.trim();
+
+            if (userMessage) {
+                const userDiv = document.createElement('div');
+                userDiv.className = 'message user-message';
+                userDiv.innerHTML = `You:  ${userMessage}`;
+                chatBox.appendChild(userDiv);
+
+                // Create loading message
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'message bot-message';
+                loadingDiv.innerHTML = 'AI: Thinking...';
+                chatBox.appendChild(loadingDiv);
+
+                // Send message to backend
+                fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessage })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Replace loading message with actual response
+                    loadingDiv.innerHTML = `AI:  ${data.response}`;
+                })
+                .catch(error => {
+                    loadingDiv.innerHTML = 'AI: Sorry, something went wrong.';
+                });
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+                userInput.value = '';
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function toggleDeveloperInfo() {
+            const developerInfo = document.getElementById('developerInfo');
+            const overlay = document.getElementById('overlay');
+            developerInfo.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+
+        // Remove the previous click event listener and use this instead
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const developerInfo = document.getElementById('developerInfo');
+                const overlay = document.getElementById('overlay');
+                developerInfo.classList.remove('show');
+                overlay.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
