@@ -4,7 +4,7 @@ AppOpener
 pywhatkit
 bs4
 pillow
-rich==13.7.0
+rich
 requests
 keyboard
 cohere==4.39
