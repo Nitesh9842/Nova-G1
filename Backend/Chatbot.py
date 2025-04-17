@@ -69,7 +69,7 @@ def ChatBot (Query):
         messages.append({"role": "user", "content": Query})
 
         completion = client.chat.completions.create(
-            model="llama-3.2-90b-vision-preview",
+            model="deepseek-r1-distill-llama-70b",
             messages=systemChatBot + [{"role": "system", "content": RealtimeInformation()}] + messages,
             max_tokens=1024,
             temperature=0.7,
