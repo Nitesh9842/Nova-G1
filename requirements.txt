@@ -8,7 +8,7 @@ rich==13.7.0
 requests
 keyboard
 cohere==4.39
-googlesearch-python==1.2.3
+googlesearch-python
 selenium
 mtranslate
 pygame
