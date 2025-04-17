@@ -109,27 +109,20 @@ ChatHistory = [
     {"role" : "Chatbot", "message" : "general what is python programming language?"}
 ]
 
-def FirstLayerDMM(prompt: str):
+def FirstLayerDMM(prompt: str, depth=0):
     try:
         messages.append({"role": "user", "content": prompt})
 
-        # Using the newer chat method instead of chat_stream
         response = co.chat(
             model='command-r-plus',
             message=prompt,
             temperature=0.7,
-            chat_history=ChatHistory,  # type: ignore
+            chat_history=[system_message] + ChatHistory,
             prompt_truncation='OFF',
-            preamble=preamble
         )
 
-        # Get the text from the response
-        response_text = response.text
-        
-        # Process response
-        response_text = response_text.replace("\n", "")
-        response_items = response_text.split(", ")
-        response_items = [i.strip() for i in response_items]
+        response_text = response.text.replace("\n", "")
+        response_items = [i.strip() for i in response_text.split(", ")]
 
         temp = []
         for task in response_items:
@@ -138,13 +131,15 @@ def FirstLayerDMM(prompt: str):
                     temp.append(task)
 
         if any("(query)" in task for task in temp):
-            return FirstLayerDMM(prompt)
+            return FirstLayerDMM(prompt, depth + 1)
         else:
             return temp
 
     except Exception as e:
         return [f"Error: {str(e)}"]
 
+
 if __name__ == "__main__":
     while True:
         print(FirstLayerDMM(input(">>> ")))
+
