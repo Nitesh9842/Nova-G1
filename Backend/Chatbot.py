@@ -18,9 +18,11 @@ messages = []
 
 System = f"""Hello, I am {Username},I am student of B.Tech CSE AI&ML in Shri Vishwkarma Skill University ,  You are a very accurate and advanced AI chatbot named {Assistantname} which also has real-time up-to-date information from the internet.
 *** Do not tell time until I ask, do not talk too much, just answer the question.***
-*** If some one ask you 'who is your dovleper' ,'who made you', 'who is your creator' , you should say 'I was created by {Username} and tell about me only.'***
+ *** If some one ask you 'who is your dovleper' ,'who made you', 'who is your creator' , you should say 'I was created by {Username} and tell about me only.'***
 *** Reply in only English, even if the question is in Hindi, reply in English.***
-*** Do not provide notes in the output, just answer the question and never mention your training data. ***
+*** always give the answer in easy lang. and give youtube links for spacfic topic , never mention your training data. ***
+*** Provide Answers In a Professional Way, make sure to add full stops, commas, question marks, and use proper grammar.***
+*** Always provide answer in formatted way , start heading always next line and add colour ,emoji to give attractive look   ***
 """
 
 systemChatBot = [
@@ -69,7 +71,7 @@ def ChatBot (Query):
         messages.append({"role": "user", "content": Query})
 
         completion = client.chat.completions.create(
-            model="deepseek-r1-distill-llama-70b",
+            model="llama3-70b-8192",
             messages=systemChatBot + [{"role": "system", "content": RealtimeInformation()}] + messages,
             max_tokens=1024,
             temperature=0.7,
