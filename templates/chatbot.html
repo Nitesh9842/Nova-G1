@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova G1</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-java.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
             height: 100vh;
             background-color: black;
-            color: #fff;
+            color:whitesmoke;
             margin: 0;
             justify-content: center;
             align-items: center;
@@ -19,13 +25,13 @@
         }
         .chat-container {
             width: 90%; /* Changed from 60% */
-            max-width: 800px; /* Reduced from 1200px for better centered look */
+            max-width: 1000px; /* Reduced from 1200px for better centered look */
             height: calc(100vh - 20px);
             background-color: black;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border-radius: 20px;
+            border-radius: 10px;
             position: relative;
             margin: auto;
         }
@@ -60,7 +66,7 @@
             left: 20px;
             font-weight: bold;
             font-size: 1.5rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: linear-gradient(45deg, #ab6bff, #a1cd4e);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -70,38 +76,183 @@
         }
         .chat-box {
             flex: 1;
-            padding: 10px;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            font-size: 1rem; /* Changed from 1.2rem */
-            margin-top: 40px; /* Add space for header */
+            font-size: 1rem;
+            margin-top: 40px;
         }
         .message {
-            display: flex;
-            align-items: center;
-            margin: 8px 0;
-            padding: 8px 12px;
-            max-width: 85%; /* Changed from 75% */
+            display: inline-block;
+            margin: 12px 0;
+            padding: 15px 20px;
+            max-width: 85%;
             position: relative;
             word-wrap: break-word;
+            line-height: 1.6;
         }
         .user-message {
             align-self: flex-end;
-            background-color: rgb(100, 95, 95);
-            border-radius: 10px 10px 0 10px;
-            text-align: right;
+            background: black;
+            border-radius: 20px 20px 0 20px;
+            margin-left: 15%;
+            box-shadow: 0 3px 10px white;
+        }
+        .user-message::before {
+            /* content: '👤'; */
+            position: absolute;
+            right: -25px;
+            top: -5px;
+            font-size: 1.2em;
         }
         .bot-message {
             align-self: flex-start;
-            background-color: none;
-            border-radius: 10px 10px 10px 0;
-            position: relative;
-            
+            background: black;
+            /* border: 1px solid rgba(78, 205, 196, 0.3); */
+            border-radius: 20px 20px 20px 0;
+            margin-right: 15%;
+            color: #fff;
         }
-        .input-area {
+        .bot-message::before {
+            /* content: '🤖'; */
+            position: absolute;
+            left: -25px;
+            top: -5px;
+            font-size: 1.2em;
+        }
+        
+        /* Enhanced message formatting styles */
+        .message h1, .message h2, .message h3 {
+            margin: 1.5em 0 0.8em 0;
+            padding-top: 0.5em;
+            background: linear-gradient(45deg, #4ecdc4, #00e5ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            clear: both;
+            line-height: 1.4;
+        }
+        
+        .message h1:first-child, .message h2:first-child, .message h3:first-child {
+            margin-top: 0.5em;
+        }
+
+        .message p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+        
+        .bot-message p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+        
+        .message code {
+            background: whitesmoke;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid rgb(160, 180, 86);
+        }
+
+        /* Add new styles for code blocks */
+        .code-block-container {
             position: relative;
+            margin: 1em 0;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 5px 10px;
+            background: #2d2d2d;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .copy-button:hover {
+            opacity: 1;
+        }
+
+        pre[class*="language-"] {
+            margin: 0.5em 0;
+            border-radius: 5px;
+            padding: 1em;
+            background: #1e1e1e !important;
+        }
+
+        code[class*="language-"] {
+            font-family: 'Consolas', 'Monaco', monospace;
+            text-shadow: none;
+        }
+
+                
+        .message pre {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .message strong {
+            color: #3ab34a;
+            font-weight: bold;
+            padding: 0 3px;
+        }
+        
+        .message em {
+            color: #cd4ecd;
+            font-style: italic;
+        }
+        
+        .message ul li::before {
+            content: '→';
+            color: #4ecdc4;
+            margin-right: 8px;
+        }
+        
+        .message ol {
+            counter-reset: item;
+        }
+        
+        .message ol li::before {
+            content:  "▸ ";
+            counter-increment: item;
+            color: #4ecdc4;
+            margin-right: 8px;
+        }
+
+        .message blockquote {
+            border-left: 4px solid black;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Add subtle animations */
+        .message {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-area {
+            position:relative;
             display: flex;
             background-color: #050505;
             padding: 15px;
@@ -110,26 +261,28 @@
         }
         input[type="text"] {
             width: 100%;
-            height: 35px;
+            height: 100px;
             border: none;
             padding: 15px 60px 15px 20px;
-            outline: none;
-            background-color: #292828;
+            outline:none;
+            background-color: #080808;
             color: #ddd;
-            border-radius: 25px;
-            font-size: 1rem; /* Changed from 1.2rem */
+            border-radius: 20px;
+            font-size: 1.2rem; /* Changed from 1.2rem */
+             box-shadow: 0 3px 5px white;
+            
         }
         button {
             position: absolute;
-            right: 20px;
+            right: 30px;
             top: 50%;
             transform: translateY(-50%);
-            background-color: #4ecdc4;
+            background-color: #f2f5f5;
             color: #000;
             border: none;
             padding: 10px 20px; /* Changed from 20px 25px */
             cursor: pointer;
-            border-radius: 20px;
+            border-radius: 50px;
             font-size: 1rem; /* Changed from 1.2rem */
             white-space: nowrap;
         }
@@ -165,8 +318,8 @@
             }
             input[type="text"] {
                 padding: 15px 65px 15px 15px;
-                font-size: 1.5rem;
-                height: 80px;
+                font-size: 1rem;
+                height: 90px;
             }
             button {
                 padding: 8px 15px;
@@ -234,18 +387,69 @@
             visibility: visible;
             opacity: 1;
         }
+
+        /* Add new styles for formatted text */
+        .bot-message pre {
+            background-color: #1e1e1e;
+            padding: 1em;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 0.5em 0;
+        }
+
+        .bot-message code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #2d2d2d;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+
+        .bot-message p {
+            margin: 0.5em 0;
+            line-height: 1.5;
+        }
+
+        .bot-message ul, .bot-message ol {
+            margin: 0.5em 0;
+            padding-left: 2em;
+        }
+
+        .bot-message blockquote {
+            border-left: 4px solid #4ecdc4;
+            margin: 0.5em 0;
+            padding-left: 1em;
+            color: #a0a0a0;
+        }
+
+        .bot-message table {
+            border-collapse: collapse;
+            margin: 0.5em 0;
+            width: 100%;
+        }
+
+        .bot-message th, .bot-message td {
+            border: 1px solid #444;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .bot-message th {
+            background-color: #2d2d2d;
+        }
     </style>
 </head>
 <body>
+     <div class="app-title">Nova G1 </div>
     <div class="chat-container">
+       
         <div class="header">
-            <div class="app-title">Nova G1 </div>
+            
             <div class="three-dots" onclick="toggleDeveloperInfo()">⋮</div>
             <div class="developer-info" id="developerInfo">
-                <span class="close-menu" onclick="toggleDeveloperInfo()">×</span>
+                
                 <h2 style="margin-bottom: 20px; color: #4ecdc4;">Developer Info</h2>
                 <p><strong>Developer:</strong> Nitesh Sain</p>
-                <p><strong>Version:</strong> Nova G1</p>
+                <p><strong>Version:</strong> Nova G2</p>
                 <p><strong>Contact:</strong> niteshsain9842@gmail.com</p>
                 <p><strong>Linkdin:  </strong><a href="https://www.linkedin.com/in/nitesh-sain-7191a9324?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">URL Click</a> </p>
             </div>
@@ -257,7 +461,7 @@
             </div>
         </div>
         <div class="input-area">
-            <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <input type="text" id="userInput" placeholder="  Ask Anything..." onkeypress="handleKeyPress(event)">
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
@@ -271,16 +475,14 @@
             if (userMessage) {
                 const userDiv = document.createElement('div');
                 userDiv.className = 'message user-message';
-                userDiv.innerHTML = `You:  ${userMessage}`;
+                userDiv.innerHTML = ` ${userMessage}`;
                 chatBox.appendChild(userDiv);
 
-                // Create loading message
                 const loadingDiv = document.createElement('div');
                 loadingDiv.className = 'message bot-message';
-                loadingDiv.innerHTML = 'AI: Thinking...';
+                loadingDiv.innerHTML = ' Thinking...';
                 chatBox.appendChild(loadingDiv);
 
-                // Send message to backend
                 fetch('/chat', {
                     method: 'POST',
                     headers: {
@@ -290,11 +492,36 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    // Replace loading message with actual response
-                    loadingDiv.innerHTML = `AI:  ${data.response}`;
+                    // Modify the markdown parsing to include code highlighting
+                    const formattedResponse = marked.parse(data.response);
+                    loadingDiv.innerHTML = `${formattedResponse}`;
+
+                    // Add copy buttons to code blocks
+                    loadingDiv.querySelectorAll('pre code').forEach((block) => {
+                        const container = document.createElement('div');
+                        container.className = 'code-block-container';
+                        const copyButton = document.createElement('button');
+                        copyButton.className = 'copy-button';
+                        copyButton.textContent = 'Copy';
+                        
+                        block.parentNode.parentNode.insertBefore(container, block.parentNode);
+                        container.appendChild(block.parentNode);
+                        container.appendChild(copyButton);
+                        
+                        copyButton.addEventListener('click', () => {
+                            navigator.clipboard.writeText(block.textContent);
+                            copyButton.textContent = 'Copied!';
+                            setTimeout(() => {
+                                copyButton.textContent = 'Copy';
+                            }, 2000);
+                        });
+                    });
+                    
+                    // Trigger Prism highlighting
+                    Prism.highlightAllUnder(loadingDiv);
                 })
                 .catch(error => {
-                    loadingDiv.innerHTML = 'AI: Sorry, something went wrong.';
+                    loadingDiv.innerHTML = ' Sorry, something went wrong.';
                 });
 
                 chatBox.scrollTop = chatBox.scrollHeight;
