@@ -38,9 +38,9 @@ def GoogleSearch(query):
         # Add timeout and retries
         results = list(search(
             query, 
-            advanced=True, 
-            num_results=5,
-            timeout=10
+            advanced=True,  
+            num_results=5, 
+            timeout=10 
         ))
         Answer = f"the search results for '{query}' are :\n [start]\n"
 
@@ -102,9 +102,9 @@ def RealtimeSearchEngine(prompt):
     messages.append({"role": "user", "content": f"{prompt}"})
 
     systemChatBot.append({"role": "system", "content": GoogleSearch(prompt)})
-
+ 
     completion = client.chat.completions.create(
-        model="deepseek-r1-distill-llama-70b",
+        model="llama3-70b-8192",
         messages=systemChatBot + [{"role": "system", "content": Information()}] + messages,
         max_tokens=2048,
         temperature=0.7,
@@ -131,17 +131,10 @@ def RealtimeSearchEngine(prompt):
     return AnswerModifier(Answer=Answer)
 
 # Add this before running the main loop to test connectivity
-def test_connection():
-    try:
-        requests.get('https://www.google.com', timeout=5)
-        print("Internet connection is working")
-        return True
-    except requests.RequestException:
-        print("No internet connection available")
-        return False
+
 
 if __name__ == "__main__":
-    if test_connection():
+    if requests.get("https://www.google.com", timeout=5).status_code == 200:
         while True:
             prompt = input("Enter your Realtime Query: ")
             print(RealtimeSearchEngine(prompt))
