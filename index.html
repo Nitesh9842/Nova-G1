@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat LLM</title>
+</head>
+<body>
+    <style>
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        body {
+            margin: 10px;
+            padding: 10px;
+            height: 100vh;
+            background: linear-gradient(-50deg, #b7dde2, #457547, #585577, #81536e);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 50px;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        nav {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            /* animation: fadeIn 1s ease-out; */
+            padding-top: 10px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            padding-top: 50px;
+            background: linear-gradient(45deg, #00e5ff, #2979ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* animation: float 3s ease-in-out infinite; */
+        }
+
+        .nav-buttons .btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid #00e5ff;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-buttons .btn:hover {
+            background: #00e5ff;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.4);
+        }
+
+        .content {
+            margin-top: 150px;
+            max-width: 600px;
+            margin-left: 100px;
+            animation: fadeIn 1s ease-out 0.5s backwards;
+        }
+
+        h1 {
+            font-size: 72px;
+            margin: 0;
+            background: linear-gradient(45deg, #fff, #00e5ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #00e5ff, #2979ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #fff;
+            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .buttons {
+            margin-top: 30px;
+            animation: fadeIn 1s ease-out 1s backwards;
+        }
+
+        .get-started, .connect {
+            background: linear-gradient(45deg, #00e5ff, #2979ff);
+            border: none;
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 30px;
+            margin-right: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+        }
+
+        .get-started:hover, .connect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 229, 255, 0.5);
+        }
+
+        .connect {
+            background: transparent;
+            border: 2px solid #00e5ff;
+        }
+
+        /* Add glowing effect */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #00e5ff; }
+            50% { box-shadow: 0 0 20px #00e5ff, 0 0 30px #00e5ff; }
+            100% { box-shadow: 0 0 5px #00e5ff; }
+        }
+
+        .btn:hover, .get-started:hover {
+            animation: glow 1.5s infinite;
+        }
+    </style>
+
+    <div class="container">
+        <nav>
+            <div class="logo">Nova<span>AI</span></div>
+            <div class="nav-buttons">
+                <button class="btn">Sign In</button>
+                <button class="btn">Menu</button>
+            </div>
+        </nav>
+
+        <div class="content">
+            <h1>Chat<span class="highlight">LLM</span></h1>
+            <p>Create an AI Brain for your organization based on a combination of state-of-the-art LLMs. 
+                <div>  Devloped By :-
+                     Nitesh , Sarfraj , Ronnit , Vivek</div> 
+            </p>
+            <div class="buttons">
+                <button class="get-started" id="getStartedBtn">Get Started</button>
+                <button class="connect">Connect With Us</button>
+            </div>
+        </div>
+
+        
+
+    <script>
+        document.getElementById('getStartedBtn').addEventListener('click', function() {
+            window.open('/chatbot', '_blank');
+        });
+    </script>
+</body>
+</html>
