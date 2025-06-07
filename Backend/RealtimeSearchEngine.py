@@ -37,18 +37,16 @@ def GoogleSearch(query):
     try:
         # Add timeout and retries
         results = list(search(
-            query, 
-            advanced=True,  
-            num_results=5, 
-            timeout=10 
+            query,
+            num_results=5,
+            timeout=10
         ))
         Answer = f"the search results for '{query}' are :\n [start]\n"
-
         for i in results:
-            Answer += f"Title: {i.title}\nDescription: {i.description}\n\n" # type: ignore
-
+            Answer += f"Title: {i.title}\nDescription: {i.description}\n\n" 
         Answer += "[end]"
         return Answer
+
     except (requests.exceptions.ConnectionError, 
             requests.exceptions.Timeout,
             socket.gaierror,
