@@ -33,26 +33,20 @@ except:
         dump([], f)
 
 
+from googlesearch import search  # Make sure this is installed via `pip install googlesearch-python`
+
 def GoogleSearch(query):
     try:
-        # Add timeout and retries
-        results = list(search(
-            query,
-            num_results=5,
-            timeout=10
-        ))
-        Answer = f"the search results for '{query}' are :\n [start]\n"
-        for i in results:
-            Answer += f"Title: {i.title}\nDescription: {i.description}\n\n" 
+        # Only valid params: num, stop, pause, etc.
+        results = search(query, num=5, stop=5, pause=2.0)  # returns only URLs
+
+        Answer = f"The search results for '{query}' are:\n[start]\n"
+        for url in results:
+            Answer += f"URL: {url}\n\n"
         Answer += "[end]"
         return Answer
-
-    except (requests.exceptions.ConnectionError, 
-            requests.exceptions.Timeout,
-            socket.gaierror,
-            urllib3.exceptions.MaxRetryError) as e:
-        # Fallback response when network fails
-        return "I apologize, but I'm having trouble connecting to search services right now. Please check your internet connection and try again."
+    except Exception as e:
+        return f"An error occurred: {e}"
 
 
 
