@@ -22,7 +22,7 @@ if not GroqAPIKey:
     raise ValueError("API Key not found! Set 'GroqAPIKey' in .env or 'GROQ_API_KEY' in environment variables.")
 
 # Initialize Groq client
-client = Groq(api_key=GroqAPIKey)
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 messages = []
 
