@@ -12,7 +12,7 @@ Assistantname = env_vars.get("Assistantname")
 GroqAPIKey = env_vars.get("GroqAPIKey")
 
 
-client = Groq(api_key=os.getenv("GroqAPIKey"))
+client = Groq(api_key=GroqAPIKey)
 
 messages = []
 
